@@ -1,10 +1,10 @@
-export default function Welcome() {
-    const user = { name: 'João' }
+import falseUser from "@/data/constants/falseUser"
 
+export default function Welcome() {
     function renderName() {
         return (
             <span className="hidden sm:inline">
-                {user?.name?.split(' ') [0]}
+                {falseUser?.name?.split(' ') [0]}
             </span>
         )
     }
