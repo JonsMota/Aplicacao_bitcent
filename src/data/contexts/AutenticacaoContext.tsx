@@ -1,3 +1,4 @@
+import servicos from "@/logic/core"
 import Usuario from "@/logic/core/user/User"
 import Autenticacao from "@/logic/firebase/auth/Autenticacao"
 import { createContext, useEffect, useState } from "react"
@@ -20,7 +21,7 @@ export function AutenticacaoProvider(props: any) {
     const [carregando, setCarregando] = useState<boolean>(true)
     const [usuario, setUsuario] = useState<Usuario | null>(null)
 
-    const autenticacao = new Autenticacao()
+    const autenticacao = new Autenticacao
 
     useEffect(() => {
         const cancelar = autenticacao.monitorar((usuario) => {
@@ -30,8 +31,16 @@ export function AutenticacaoProvider(props: any) {
         return () => cancelar()
     }, [])
 
+    async function atualizarUsuario(novoUsuario: Usuario) {
+        if (usuario && usuario.email !== novoUsuario.email) return logout()
+        if (usuario && novoUsuario && usuario.email === novoUsuario.email) {
+            await servicos.usuario.salvar(novoUsuario)
+            setUsuario(novoUsuario)
+        }
+    }
+
     async function loginGoogle() {
-        const usuario = await autenticacao.loginGoogle()
+        const usuario = await servicos.usuario.loginGoogle()
         setUsuario(usuario)
         return usuario
     }
