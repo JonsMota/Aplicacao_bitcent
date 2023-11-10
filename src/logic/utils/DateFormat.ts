@@ -25,4 +25,12 @@ export default class DateFormat {
             .toUpperCase()
             .substring(0, 3))
     }
+
+    static primeiroDia(dt: Date) {
+        return new Date(dt.getFullYear(), dt.getMonth(), 1)
+    }
+
+    static ultimoDia(dt: Date) {
+        return new Date(dt.getFullYear(), dt.getMonth() + 1, 0, 23, 59, 59)
+    }
 }
