@@ -1,7 +1,13 @@
 import { Avatar, Menu } from "@mantine/core"
 import falseUser from "@/data/constants/falseUser"
+import Link from "next/link"
+import { IconArrowsRightLeft, IconLogout, IconUser } from "@tabler/icons-react"
 
 export default function MenuUser() {
+    function logout() {
+        console.log('logout')
+    }
+
     return (
         <Menu>
             <Menu.Target>
@@ -17,6 +23,24 @@ export default function MenuUser() {
                     />
                 </div>
             </Menu.Target>
+            <Menu.Dropdown>
+                <Menu.Label>Usuário</Menu.Label>
+                <Link href="/">
+                    <Menu.Item
+                        icon={<IconArrowsRightLeft size={14} />}
+                    >Finanças</Menu.Item>
+                </Link>
+                <Link href="/user">
+                    <Menu.Item
+                        icon={<IconUser size={14} />}
+                    >Meus Dados</Menu.Item>
+                </Link>
+                <Menu.Divider />
+                <Menu.Item 
+                    color="red" icon={<IconLogout size={14}/>}
+                    onClick={logout}
+                >Sair</Menu.Item>
+            </Menu.Dropdown>
         </Menu>
     )
 }
