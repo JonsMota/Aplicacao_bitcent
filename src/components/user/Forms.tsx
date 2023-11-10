@@ -5,6 +5,7 @@ import useForm from "@/data/hooks/useForm"
 import User from "@/logic/core/user/User"
 import Text from "@/logic/utils/Text"
 import Cpf from "@/logic/utils/Cpf"
+import Phone from "@/logic/utils/Phone"
 
 export default function Forms() {
     const { data, changeData } = useForm<User>(falseUser)
@@ -32,6 +33,18 @@ export default function Forms() {
                 <TextInput 
                     value={Cpf.format(data.cpf?? '')}
                     onChange={changeData('cpf', Cpf.unformat)}
+                />
+            </MiniForm>
+            <MiniForm
+                title="Telefone"
+                description="Usado para notificações importantes sobre a sua conta."
+                msgFooter="Se receber ligação a cobrar, não foi a gente!"
+                canSave={Text.between(data.name, 3, 80)}
+                save={() => {}}
+            >
+                <TextInput 
+                    value={Phone.format(data.phone?? '')}
+                    onChange={changeData('phone', Phone.unformat)}
                 />
             </MiniForm>
         </div>

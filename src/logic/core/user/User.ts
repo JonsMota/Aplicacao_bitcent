@@ -4,4 +4,5 @@ export default interface User {
     email: string
     imageUrl: string | null
     cpf?: string
-}    
+    phone?: string
+}
