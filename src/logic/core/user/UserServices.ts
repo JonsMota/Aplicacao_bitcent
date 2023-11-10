@@ -6,6 +6,15 @@ export default class ServicosUsuario {
     private _autenticacao = new Autenticacao()
     private _colecao = new Colecao()
 
+    monitorarAutenticacao(observador: MonitorarUsuario): CancelarMonitoramento {
+        return this._autenticacao.monitorar(async usuario => {
+            observador(usuario ? {
+                ...usuario,
+                ...await this.consultar(usuario.email)
+            } : null)
+        })
+    }
+
     async loginGoogle(): Promise<Usuario | null> {
         const usuario = await this._autenticacao.loginGoogle()
         if (!usuario) return null
@@ -15,6 +24,10 @@ export default class ServicosUsuario {
         if (!usuarioDoBanco) usuarioDoBanco = await this.salvar(usuario)
 
         return { ...usuario, ...usuarioDoBanco }
+    }
+
+    logout(): Promise<void> {
+        return this._autenticacao.logout()
     }
 
     async salvar(usuario: Usuario) {
