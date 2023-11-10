@@ -1,5 +1,10 @@
 import Finances from "@/components/finances"
+import Landing from "@/components/landing"
+import AutenticacaoContext from "@/data/contexts/AutenticacaoContext"
+import { useContext } from "react"
 
 export default function Home() {
-  return <Finances />
+  const { usuario } = useContext(AutenticacaoContext)
+
+  return usuario ? <Finances /> : <Landing />
 }
