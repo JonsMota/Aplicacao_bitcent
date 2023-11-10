@@ -11,4 +11,16 @@ export default class TransactionServices {
             transactions
         )
     }
+
+    async search(user: User) {
+        const path = `finances/${user.email}/transactions`
+        return await this._collection.consultar(path, "date", "desc")
+    }
+
+    async delete(transaction: Transaction,user: User) {
+        return this._collection.excluir(
+            `finances/${user.email}/transactions`,
+            transaction.id
+        )
+    }
 }
