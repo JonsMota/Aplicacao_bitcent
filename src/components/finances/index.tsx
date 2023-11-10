@@ -8,9 +8,11 @@ import { Button } from "@mantine/core"
 import { IconPlus } from "@tabler/icons-react"
 import useTransactions from "@/data/hooks/useTransactions"
 import { emptyTransaction } from "@/logic/core/finances/Transaction"
+import FieldYearMonth from "../templates/FieldYearMonth"
 
 export default function Finances() {
     const {
+        data, alterarData,
         transactions, transaction, select, saveTransaction, deleteTransaction
     } = useTransactions()
 
@@ -18,13 +20,19 @@ export default function Finances() {
         <Page>
             <Header />
             <Content className="gap-5">
-                <Button
-                    className="bg-blue-500"
-                    leftIcon={<IconPlus />}
-                    onClick={() => select(emptyTransaction)}
-                >
-                    Nova transação
-                </Button>
+                <div className="flex justify-between">
+                    <FieldYearMonth 
+                        data={data}
+                        dataMudou={alterarData}
+                    />
+                    <Button
+                        className="bg-blue-500"
+                        leftIcon={<IconPlus />}
+                        onClick={() => select(emptyTransaction)}
+                    >
+                        Nova transação
+                    </Button>
+                </div>    
                 {transaction ? (
                     <Form
                         transaction={transaction}

@@ -5,6 +5,7 @@ import servicos from "@/logic/core";
 
 export default function useTransactions() {
     const { usuario } = useContext(AutenticacaoContext)
+    const [data, setData] = useState<Date>(new Date())
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [transaction, setTransaction] = useState<Transaction | null>(null)
 
@@ -33,10 +34,12 @@ export default function useTransactions() {
     }
 
     return {
+        data,
         transactions,
         transaction,
         saveTransaction,
         deleteTransaction,
-        select: setTransaction
+        select: setTransaction,
+        alterarData: setData
     }
 }
